@@ -9,8 +9,10 @@ print '------------------'
 z = {1: 'audiostreams', 2: 'streams', 3: 'allstreams'}
 print 'Chose the list of available formats and enter the number:'
 temp_list = ['audio streams','streams','all streams']
+counter_for_inf = 0
 for x in temp_list:
-    print x
+    print counter_for_inf, x
+    counter_for_inf += 1
 number = int(raw_input('->'))
 list_of_formats = []
 counter = 0
@@ -33,6 +35,8 @@ elif number == 3:
 format_url = int(raw_input('Chose format to download ->'))
 print 'Type the path where will be downloaded file'
 print 'Example for windows "D:/" or "D:/downloads"'
+print 'Example for linux "/home/<user_name>"'
+print 'leave empty to download in app director'
 path_file = raw_input('->')
 list_of_formats[format_url].download(filepath=path_file)
 
