@@ -1,4 +1,4 @@
-Downloader
+Terminal Downloader (T_YouD)
 
 dependency:
 
