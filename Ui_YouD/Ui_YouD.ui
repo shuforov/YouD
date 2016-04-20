@@ -23,7 +23,7 @@
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="Link">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -67,9 +67,9 @@
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_7">
               <item>
-               <widget class="QLabel" name="label">
+               <widget class="QLabel" name="LogoImage">
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string>Some text</string>
                 </property>
                </widget>
               </item>
@@ -83,9 +83,9 @@
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_7">
               <item>
-               <widget class="QLabel" name="label_2">
+               <widget class="QLabel" name="Description">
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string/>
                 </property>
                </widget>
               </item>
@@ -110,7 +110,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="TakeInformation">
              <property name="text">
               <string>Take Information</string>
              </property>
@@ -143,7 +143,7 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
-              <widget class="QComboBox" name="comboBox">
+              <widget class="QComboBox" name="TypeOfStream">
                <item>
                 <property name="text">
                  <string>Audio Streams</string>
@@ -177,7 +177,7 @@
             </layout>
            </item>
            <item>
-            <widget class="QListView" name="listView"/>
+            <widget class="QListView" name="ListOfStream"/>
            </item>
           </layout>
          </item>
@@ -190,10 +190,10 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_4">
               <item>
-               <widget class="QLineEdit" name="lineEdit_2"/>
+               <widget class="QLineEdit" name="PathDownload"/>
               </item>
               <item>
-               <widget class="QToolButton" name="toolButton_2">
+               <widget class="QToolButton" name="PathButton">
                 <property name="text">
                  <string>...</string>
                 </property>
@@ -220,7 +220,7 @@
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="Download">
              <property name="text">
               <string>Download</string>
              </property>
@@ -251,12 +251,29 @@
  </widget>
  <tabstops>
   <tabstop>tabWidget</tabstop>
-  <tabstop>pushButton</tabstop>
-  <tabstop>listView</tabstop>
-  <tabstop>comboBox</tabstop>
-  <tabstop>lineEdit_2</tabstop>
-  <tabstop>toolButton_2</tabstop>
+  <tabstop>Download</tabstop>
+  <tabstop>ListOfStream</tabstop>
+  <tabstop>TypeOfStream</tabstop>
+  <tabstop>PathDownload</tabstop>
+  <tabstop>PathButton</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>TakeInformation</sender>
+   <signal>clicked()</signal>
+   <receiver>LogoImage</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>278</x>
+     <y>357</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>181</x>
+     <y>258</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
