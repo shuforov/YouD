@@ -8,13 +8,14 @@ class Icon(QtGui.QWidget):
         self.setGeometry(150,150,450,350)
         self.setWindowTitle("Ui_YouD_ui")
 
-        tb = QtGui.QPushButton('Take information', self)
-        tb.setGeometry(10,10, 130, 30)
+        self.tb = QtGui.QPushButton('Take information', self)
+        self.tb.setGeometry(10,10, 130, 30)
+        self.tb.clicked.connect(self.take_inf)
 
-        le = QtGui.QLineEdit(self)
-        le.setGeometry(11,40,200,20)
+        self.le = QtGui.QLineEdit(self)
+        self.le.setGeometry(11,40,200,20)
 
-        tb.clicked.connect(self.take_inf)
+
 
     def take_inf(self):
         text = self.le.text()
