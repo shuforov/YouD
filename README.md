@@ -2,9 +2,8 @@ Terminal Downloader (T_YouD)
 
 dependency:
 
-1.python 2.7
-
-2.pafy
+1. python 2.7
+2. pafy
 
 
 to install pafy you need:
@@ -38,3 +37,10 @@ Open CMD (command prompt) and install pafy
 if got error youtube_dll
 
 pip install --upgrade youtube_dl
+
+QT Downloader (Ui_YouD_ui)
+
+1. python 2.7
+2. pyqt4
+
+sudo apt-get install python-qt4
