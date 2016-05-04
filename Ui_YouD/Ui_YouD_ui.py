@@ -17,6 +17,7 @@ class Icon(QtGui.QWidget):
         self.setGeometry(150, 150, 450, 350)
         # self.initUi()
 
+
     def UrlGroup(self):
         groupBox = QtGui.QGroupBox("Type your link here")
 
@@ -24,10 +25,24 @@ class Icon(QtGui.QWidget):
         le = QtGui.QLineEdit()
         # self.le.setGeometry(11, 0, 350, 20)
 
+        def takeInfo(self):
+            text = le.text()
+            print text
+            url = pafy.new(text)
+            print '------------------'
+            image_url = url.thumb
+            urllib.urlretrieve(image_url, "image.jpg")
+            print url.thumb
+            print 'Title:', url.title
+            print 'Duration:', url.duration
+            print '------------------'
+
         # url button
         tb = QtGui.QPushButton('Take information')
         # self.tb.setGeometry(10, 40, 130, 30)
-        tb.clicked.connect(self.take_inf)
+        tb.clicked.connect(takeInfo)
+
+
 
         vbox = QtGui.QHBoxLayout()
         vbox.addWidget(le)
@@ -84,7 +99,7 @@ class Icon(QtGui.QWidget):
         return groupBox
 
     def take_inf(self):
-        text = self.le.text()
+        text = self.UrlGroup.le.text()
         print text
         url = pafy.new(text)
         print '------------------'
