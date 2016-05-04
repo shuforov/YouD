@@ -8,14 +8,16 @@ class Icon(QtGui.QWidget):
         super(Icon, self).__init__()
 
         grid = QtGui.QGridLayout()
-        grid.addWidget(self.UrlGriup(), 0, 0)
+        grid.addWidget(self.UrlGroup(), 0, 0)
+        grid.addWidget(self.FormatGroup(),1,0)
+        grid.addWidget(self.PathGroup(),2,0)
         self.setLayout(grid)
 
         self.setWindowTitle("Ui_YouD_ui")
         self.setGeometry(150, 150, 450, 350)
         # self.initUi()
 
-    def UrlGriup(self):
+    def UrlGroup(self):
         groupBox = QtGui.QGroupBox("Type your link here")
 
         # line url
@@ -52,6 +54,34 @@ class Icon(QtGui.QWidget):
         self.ql = QtGui.QLabel('Image', self)
         self.ql.setGeometry(13, 55, 200, 200)
         self.ql.setPixmap(QtGui.QPixmap('image.jpg'))
+
+    def FormatGroup(self):
+        groupBox = QtGui.QGroupBox('Format video')
+
+        cb1 = QtGui.QComboBox()
+
+        cb2 = QtGui.QComboBox()
+
+        vbox = QtGui.QHBoxLayout()
+        vbox.addWidget(cb1)
+        vbox.addWidget(cb2)
+        groupBox.setLayout(vbox)
+
+        return groupBox
+
+    def PathGroup(self):
+        groupBox = QtGui.QGroupBox("Path")
+
+        le = QtGui.QLineEdit()
+
+        tb = QtGui.QPushButton('Download')
+
+        vbox = QtGui.QHBoxLayout()
+        vbox.addWidget(le)
+        vbox.addWidget(tb)
+        groupBox.setLayout(vbox)
+
+        return groupBox
 
     def take_inf(self):
         text = self.le.text()
