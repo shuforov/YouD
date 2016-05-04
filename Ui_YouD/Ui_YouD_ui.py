@@ -8,27 +8,28 @@ class Icon(QtGui.QWidget):
         super(Icon, self).__init__()
 
         grid = QtGui.QGridLayout()
-        grid.addWidget(self.createFirstExclusiveGroup(), 0, 0)
+        grid.addWidget(self.UrlGriup(), 0, 0)
         self.setLayout(grid)
 
         self.setWindowTitle("Ui_YouD_ui")
         self.setGeometry(150, 150, 450, 350)
-        self.initUi()
+        # self.initUi()
 
-    def createFirstExclusiveGroup(self):
-        groupBox = QtGui.QGroupBox("Exclusive Radio Buttons")
+    def UrlGriup(self):
+        groupBox = QtGui.QGroupBox("Type your link here")
 
-        radio1 = QtGui.QRadioButton("&Radio button 1")
-        radio2 = QtGui.QRadioButton("R&adio button 2")
-        radio3 = QtGui.QRadioButton("Ra&dio button 3")
+        # line url
+        le = QtGui.QLineEdit()
+        # self.le.setGeometry(11, 0, 350, 20)
 
-        radio1.setChecked(True)
+        # url button
+        tb = QtGui.QPushButton('Take information')
+        # self.tb.setGeometry(10, 40, 130, 30)
+        tb.clicked.connect(self.take_inf)
 
-        vbox = QtGui.QVBoxLayout()
-        vbox.addWidget(radio1)
-        vbox.addWidget(radio2)
-        vbox.addWidget(radio3)
-        vbox.addStretch(1)
+        vbox = QtGui.QHBoxLayout()
+        vbox.addWidget(le)
+        vbox.addWidget(tb)
         groupBox.setLayout(vbox)
 
         return groupBox
@@ -52,8 +53,6 @@ class Icon(QtGui.QWidget):
         self.ql.setGeometry(13, 55, 200, 200)
         self.ql.setPixmap(QtGui.QPixmap('image.jpg'))
 
-        self.show()
-
     def take_inf(self):
         text = self.le.text()
         print text
@@ -71,6 +70,7 @@ def main():
 
     app = QtGui.QApplication(sys.argv)
     icon = Icon()
+    icon.show()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
