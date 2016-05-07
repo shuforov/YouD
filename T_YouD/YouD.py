@@ -9,7 +9,7 @@ print '------------------'
 z = {1: 'audiostreams', 2: 'streams', 3: 'allstreams'}
 print 'Chose the list of available formats and enter the number:'
 temp_list = ['audio streams','streams','all streams']
-counter_for_inf = 0
+counter_for_inf = 1
 for x in temp_list:
     print counter_for_inf, x
     counter_for_inf += 1

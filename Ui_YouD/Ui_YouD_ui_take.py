@@ -3,13 +3,13 @@ import pafy
 import urllib
 
 from PyQt4 import QtGui,QtCore
+
 class Icon(QtGui.QWidget):
     def __init__(self):
         super(Icon, self).__init__()
 
         grid = QtGui.QGridLayout()
         grid.addWidget(self.UrlGroup(), 0, 0)
-        grid.addWidget(self.FormatGroup(),1,0)
         grid.addWidget(self.PathGroup(),2,0)
         self.setLayout(grid)
 
@@ -28,6 +28,7 @@ class Icon(QtGui.QWidget):
         def takeInfo(self):
             text = le.text()
             print text
+            h = 'kkkk'
             url = pafy.new(text)
             print '------------------'
             image_url = url.thumb
@@ -51,6 +52,10 @@ class Icon(QtGui.QWidget):
 
         return groupBox
 
+    def someinfo(self):
+        print 'sasds'
+        return 'sdasd'
+
     def initUi(self):
 
         #url button
@@ -69,20 +74,6 @@ class Icon(QtGui.QWidget):
         self.ql = QtGui.QLabel('Image', self)
         self.ql.setGeometry(13, 55, 200, 200)
         self.ql.setPixmap(QtGui.QPixmap('image.jpg'))
-
-    def FormatGroup(self):
-        groupBox = QtGui.QGroupBox('Format video')
-
-        cb1 = QtGui.QComboBox()
-
-        cb2 = QtGui.QComboBox()
-
-        vbox = QtGui.QHBoxLayout()
-        vbox.addWidget(cb1)
-        vbox.addWidget(cb2)
-        groupBox.setLayout(vbox)
-
-        return groupBox
 
     def PathGroup(self):
         groupBox = QtGui.QGroupBox("Path")
