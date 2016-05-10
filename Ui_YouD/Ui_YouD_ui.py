@@ -4,12 +4,13 @@ import urllib
 
 from PyQt4 import QtGui,QtCore
 
-class Icon(QtGui.QWidget):
+class Take(QtGui.QWidget):
     def __init__(self):
-        super(Icon, self).__init__()
+        super(Take, self).__init__()
 
         grid = QtGui.QGridLayout()
         grid.addWidget(self.UrlGroup(), 0, 0)
+        grid.addWidget(self.FormatGroup(), 1, 0)
         grid.addWidget(self.PathGroup(),2,0)
         self.setLayout(grid)
 
@@ -52,9 +53,24 @@ class Icon(QtGui.QWidget):
 
         return groupBox
 
-    def someinfo(self):
-        print 'sasds'
-        return 'sdasd'
+    def FormatGroup(self):
+        groupBox = QtGui.QGroupBox('Format video')
+
+        cb1 = QtGui.QComboBox()
+
+        lw = QtGui.QListWidget()
+
+        vbox = QtGui.QVBoxLayout()
+        vbox.addWidget(cb1)
+        vbox.addWidget(lw)
+        groupBox.setLayout(vbox)
+        cb1.addItem('Audio Streams')
+        cb1.addItem('Video Streams')
+        cb1.addItem('All Streams')
+        lw.addItem('asdasd')
+        lw.addItem('asdasd')
+
+        return groupBox
 
     def initUi(self):
 
@@ -105,8 +121,8 @@ class Icon(QtGui.QWidget):
 def main():
 
     app = QtGui.QApplication(sys.argv)
-    icon = Icon()
-    icon.show()
+    take = Take()
+    take.show()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
