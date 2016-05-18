@@ -1,13 +1,12 @@
 import sys
 import pafy
-
 from PyQt4 import QtGui, QtCore
-from Ui_YouD import Ui_Form
+from Ui_YouD import Ui_Ui_YouD
 
-class Form1(QtGui.QWidget, Ui_Form):
+class Ui_YouD(QtGui.QWidget, Ui_Ui_YouD):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
-        Ui_Form.__init__(self)
+        Ui_Ui_YouD.__init__(self)
         # Configure ui interface
         self.setupUi(self)
         # connect info button to check info about url and add to list widget formats
@@ -16,11 +15,6 @@ class Form1(QtGui.QWidget, Ui_Form):
         self.connect(self.DownloadButton, QtCore.SIGNAL("clicked()"),self.download_url)
 
 
-
-
-
-
-#https://www.youtube.com/watch?v=9ZetitIsaSM
     # take url and add items to check box and list
     def takeandadd(self):
         text = self.lineEdit.text()
@@ -75,64 +69,82 @@ class Form1(QtGui.QWidget, Ui_Form):
                 len_list_formats = len_list_formats - 1
 
     def download_url(self):
-
-        print self.listWidget_type.currentRow()
+        # print self.listWidget_type.currentRow()
         text_d = str(self.listWidget_type.currentItem().text())
-        print text_d
-        print type(text_d)
-
+        # print text_d
+        # print type(text_d)
         text_url = self.lineEdit.text()
         url = pafy.new(text_url)
         list_form_audio = url.audiostreams
         list_form_video = url.streams
         list_form_all_type = url.allstreams
-
         dict_list_form_audio = {}
         dict_list_form_video = {}
         dict_list_form_all_type = {}
 
         counter = 0
-
         for x in list_form_audio:
             dict_list_form_audio[str(x)] = list_form_audio[counter]
             counter += 1
-
         counter =0
         for x in list_form_video:
             dict_list_form_video[str(x)] = list_form_video[counter]
             counter += 1
-
         counter = 0
         for x in list_form_all_type:
             dict_list_form_all_type[str(x)] = list_form_all_type[counter]
             counter += 1
-
         # print list_form_video
         # print list_form_all_type
         # print list_form_audio
         # print type(list_form_all_type[0])
-
-
         if text_d in dict_list_form_audio:
-            path_file = self.lineEdit_path.text()
-            dict_list_form_audio[text_d].download(filepath=path_file)
+            def progress(total, recvd, ratio, rate, eta):
+                # print ratio
+                number = ratio
+                dec = str(number - int(number))[2:4]
+                if int(ratio) == 0:
+                    self.completed = int(dec)
+                    self.progressBar_download.setValue(self.completed)
+                elif int(ratio) == 1:
+                    self.completed = 100
+                    self.progressBar_download.setValue(self.completed)
+            path_file = str(self.lineEdit_path.text())
+            dict_list_form_audio[text_d].download(filepath=path_file, quiet=True, callback=progress)
         elif text_d in dict_list_form_video:
-            path_file = self.lineEdit_path.text()
-            dict_list_form_video[text_d].download(filepath=path_file)
+            def progress(total, recvd, ratio, rate, eta):
+                # print ratio
+                number = ratio
+                dec = str(number - int(number))[2:4]
+                if int(ratio) == 0:
+                    self.completed = int(dec)
+                    self.progressBar_download.setValue(self.completed)
+                elif int(ratio) == 1:
+                    self.completed = 100
+                    self.progressBar_download.setValue(self.completed)
+            path_file = str(self.lineEdit_path.text())
+            dict_list_form_video[text_d].download(filepath=path_file, quiet=True, callback=progress)
         elif text_d in dict_list_form_all_type:
-            path_file = self.lineEdit_path.text()
-            dict_list_form_all_type[text_d].download(filepath=path_file)
-
-
+            def progress(total, recvd, ratio, rate, eta):
+                # print ratio
+                number = ratio
+                dec = str(number - int(number))[2:4]
+                if int(ratio) == 0:
+                    self.completed = int(dec)
+                    self.progressBar_download.setValue(self.completed)
+                elif int(ratio) == 1:
+                    self.completed = 100
+                    self.progressBar_download.setValue(self.completed)
+            path_file = str(self.lineEdit_path.text())
+            dict_list_form_all_type[text_d].download(filepath=path_file, quiet=True, callback=progress)
         # list_form_all_type[0].download(filepath='')
-
 
 
 
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
-    window = Form1()
+    window = Ui_YouD()
     window.show()
     sys.exit(app.exec_())
 
