@@ -3,7 +3,8 @@ import pafy
 from PyQt4 import QtGui, QtCore
 from Ui_YouD import Ui_Ui_YouD
 
-class Ui_YouD(QtGui.QWidget, Ui_Ui_YouD):
+
+class YouD(QtGui.QWidget, Ui_Ui_YouD):
     def __init__(self):
         QtGui.QMainWindow.__init__(self)
         Ui_Ui_YouD.__init__(self)
@@ -140,11 +141,9 @@ class Ui_YouD(QtGui.QWidget, Ui_Ui_YouD):
         # list_form_all_type[0].download(filepath='')
 
 
-
-
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
-    window = Ui_YouD()
+    window = YouD()
     window.show()
     sys.exit(app.exec_())
 

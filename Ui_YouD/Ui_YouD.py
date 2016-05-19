@@ -91,7 +91,6 @@ class Ui_Ui_YouD(object):
         self.Path_button.setText(_translate("Ui_YouD", "Chose Dir", None))
         self.DownloadButton.setText(_translate("Ui_YouD", "Download", None))
 
-
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
