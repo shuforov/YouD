@@ -6,8 +6,8 @@ from Ui_YouD_path import Ui_path_form
 
 
 class YouD(QtGui.QWidget, Ui_Ui_YouD):
-    def __init__(self):
-        QtGui.QMainWindow.__init__(self)
+    def __init__(self, parent = None):
+        QtGui.QMainWindow.__init__(self, parent)
         Ui_Ui_YouD.__init__(self)
         # Configure ui interface
         self.setupUi(self)
@@ -17,7 +17,6 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
         self.connect(self.DownloadButton, QtCore.SIGNAL("clicked()"),self.download_url)
         self.connect(self.Path_button, QtCore.SIGNAL("clicked()"),self.YouD_path_f)
         self.window2 = None
-
     # take url and add items to check box and list
     def takeandadd(self):
         text = self.lineEdit.text()
@@ -30,7 +29,6 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 self.comboBox_format_type.addItem('all streams')
         except:
             pass
-
     def chose_type(self, text):
         text_url = self.lineEdit.text()
         url = pafy.new(text_url)
@@ -70,7 +68,6 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 self.listWidget_type.addItem(string_list_form_all_type[counter])
                 counter += 1
                 len_list_formats = len_list_formats - 1
-
     def download_url(self):
         # print self.listWidget_type.currentRow()
         text_d = str(self.listWidget_type.currentItem().text())
@@ -147,9 +144,14 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
             self.window2 = YouD_path(self)
         self.window2.show()
 
+    def set_path_line(self,path):
+        a = str(path)
+        self.lineEdit_path.setText(a)
+        print self.lineEdit_path.text()
+
 
 class YouD_path(QtGui.QWidget, Ui_path_form):
-    def __init__(self,yyy):
+    def __init__(self,some_var):
         QtGui.QWidget.__init__(self)
         Ui_path_form.__init__(self)
         self.setupUi(self)
@@ -168,9 +170,11 @@ class YouD_path(QtGui.QWidget, Ui_path_form):
         self.treeView_dir.clicked.connect(self.chose_dir)
 
         # close button
-        self.connect(self.cancel_button, QtCore.SIGNAL("clicked()"), self.set_path)
+        self.connect(self.cancel_button, QtCore.SIGNAL("clicked()"), self.cancel)
         # chose button
-        self.connect(self.chose_dir_path, QtCore.SIGNAL("clicked()"), self.set_path)
+        self.connect(self.chose_dir_path, QtCore.SIGNAL("clicked()"), self.chose_and_send)
+
+        self.chosen_path_in_tree = ''
 
     def chose_dir(self, index):
         indexItem = self.model.index(index.row(), 0, index.parent())
@@ -181,7 +185,14 @@ class YouD_path(QtGui.QWidget, Ui_path_form):
         self.label_name.setText(fileName)
         self.label_path.setText(filePath)
 
-    def set_path(self):
+        self.chosen_path_in_tree = filePath
+
+    def cancel(self):
+        self.close()
+
+    def chose_and_send(self):
+        self.send_path = YouD(self)
+        self.send_path.set_path_line(self.chosen_path_in_tree)
         self.close()
 
 if __name__ == '__main__':
