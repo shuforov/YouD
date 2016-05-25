@@ -2,8 +2,6 @@ import sys
 import pafy
 from PyQt4 import QtGui, QtCore
 from Ui_YouD import Ui_Ui_YouD
-from Ui_YouD_path import Ui_path_form
-
 
 class YouD(QtGui.QWidget, Ui_Ui_YouD):
     def __init__(self, parent = None):
@@ -16,7 +14,7 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
         self.comboBox_format_type.activated[str].connect(self.chose_type)
         self.connect(self.DownloadButton, QtCore.SIGNAL("clicked()"),self.download_url)
         self.connect(self.Path_button, QtCore.SIGNAL("clicked()"),self.YouD_path_f)
-        self.window2 = None
+
     # take url and add items to check box and list
     def takeandadd(self):
         text = self.lineEdit.text()
@@ -140,60 +138,8 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
         # list_form_all_type[0].download(filepath='')
 
     def YouD_path_f(self):
-        if self.window2 is None:
-            self.window2 = YouD_path(self)
-        self.window2.show()
-
-    def set_path_line(self,path):
-        a = str(path)
-        self.lineEdit_path.setText(a)
-        print self.lineEdit_path.text()
-
-
-class YouD_path(QtGui.QWidget, Ui_path_form):
-    def __init__(self,some_var):
-        QtGui.QWidget.__init__(self)
-        Ui_path_form.__init__(self)
-        self.setupUi(self)
-        # create model
-        model = QtGui.QFileSystemModel()
-        model.setRootPath(QtCore.QDir.currentPath())
-
-        self.pathRoot = QtCore.QDir.rootPath()
-        self.model = QtGui.QFileSystemModel(self)
-        self.model.setRootPath(self.pathRoot)
-
-        self.indexRoot = self.model.index(self.model.rootPath())
-
-        self.treeView_dir.setModel(self.model)
-        self.treeView_dir.setRootIndex(self.indexRoot)
-        self.treeView_dir.clicked.connect(self.chose_dir)
-
-        # close button
-        self.connect(self.cancel_button, QtCore.SIGNAL("clicked()"), self.cancel)
-        # chose button
-        self.connect(self.chose_dir_path, QtCore.SIGNAL("clicked()"), self.chose_and_send)
-
-        self.chosen_path_in_tree = ''
-
-    def chose_dir(self, index):
-        indexItem = self.model.index(index.row(), 0, index.parent())
-
-        fileName = self.model.fileName(indexItem)
-        filePath = self.model.filePath(indexItem)
-
-        self.label_name.setText(fileName)
-        self.label_path.setText(filePath)
-
-        self.chosen_path_in_tree = filePath
-
-    def cancel(self):
-        self.close()
-
-    def chose_and_send(self):
-        self.send_path = YouD(self)
-        self.send_path.set_path_line(self.chosen_path_in_tree)
-        self.close()
+        path_dir = str(QtGui.QFileDialog.getExistingDirectory(self, "Select Directory"))
+        self.lineEdit_path.setText(path_dir)
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
