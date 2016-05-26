@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import sys
 import pafy
 from PyQt4 import QtGui, QtCore
