@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import sys
 import pafy
 from PyQt4 import QtGui, QtCore
@@ -138,8 +140,8 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
         # list_form_all_type[0].download(filepath='')
 
     def YouD_path_f(self):
-        path_dir = str(QtGui.QFileDialog.getExistingDirectory(self, "Select Directory"))
-        self.lineEdit_path.setText(path_dir.decode('cp866'))
+        path_dir = QtGui.QFileDialog.getExistingDirectory(self, "Select Directory")
+        self.lineEdit_path.setText(path_dir)
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
