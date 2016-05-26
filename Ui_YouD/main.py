@@ -16,6 +16,8 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
         self.comboBox_format_type.activated[str].connect(self.chose_type)
         self.connect(self.DownloadButton, QtCore.SIGNAL("clicked()"),self.download_url)
         self.connect(self.Path_button, QtCore.SIGNAL("clicked()"),self.YouD_path_f)
+        self.new_path_dir = ''
+
 
     # take url and add items to check box and list
     def takeandadd(self):
@@ -109,7 +111,10 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 elif int(ratio) == 1:
                     self.completed = 100
                     self.progressBar_download.setValue(self.completed)
-            path_file = str(self.lineEdit_path.text())
+            if self.new_path_dir == '':
+                path_file = str(self.lineEdit_path.text())
+            elif self.new_path_dir != '':
+                path_file = self.new_path_dir
             dict_list_form_audio[text_d].download(filepath=path_file, quiet=True, callback=progress)
         elif text_d in dict_list_form_video:
             def progress(total, recvd, ratio, rate, eta):
@@ -122,7 +127,10 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 elif int(ratio) == 1:
                     self.completed = 100
                     self.progressBar_download.setValue(self.completed)
-            path_file = str(self.lineEdit_path.text())
+            if self.new_path_dir == '':
+                path_file = str(self.lineEdit_path.text())
+            elif self.new_path_dir != '':
+                path_file = self.new_path_dir
             dict_list_form_video[text_d].download(filepath=path_file, quiet=True, callback=progress)
         elif text_d in dict_list_form_all_type:
             def progress(total, recvd, ratio, rate, eta):
@@ -135,14 +143,17 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 elif int(ratio) == 1:
                     self.completed = 100
                     self.progressBar_download.setValue(self.completed)
-            path_file = str(self.lineEdit_path.text())
+            if self.new_path_dir == '':
+                path_file = str(self.lineEdit_path.text())
+            elif self.new_path_dir != '':
+                path_file = self.new_path_dir
             dict_list_form_all_type[text_d].download(filepath=path_file, quiet=True, callback=progress)
         # list_form_all_type[0].download(filepath='')
 
     def YouD_path_f(self):
         path_dir = QtGui.QFileDialog.getExistingDirectory(self, "Select Directory")
-        new_path_dir = unicode(path_dir)
-        self.lineEdit_path.setText(new_path_dir)
+        self.new_path_dir = unicode(path_dir)
+        self.lineEdit_path.setText(self.new_path_dir)
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
