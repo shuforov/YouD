@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Ui_YouD.ui'
 #
-# Created: Sun May 22 14:03:03 2016
+# Created: Thu May 26 20:37:26 2016
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,6 +27,9 @@ class Ui_Ui_YouD(object):
     def setupUi(self, Ui_YouD):
         Ui_YouD.setObjectName(_fromUtf8("Ui_YouD"))
         Ui_YouD.resize(412, 476)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("fish.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Ui_YouD.setWindowIcon(icon)
         self.verticalLayout_2 = QtGui.QVBoxLayout(Ui_YouD)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         self.verticalLayout = QtGui.QVBoxLayout()
