@@ -141,7 +141,8 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
 
     def YouD_path_f(self):
         path_dir = QtGui.QFileDialog.getExistingDirectory(self, "Select Directory")
-        self.lineEdit_path.setText(path_dir)
+        new_path_dir = unicode(path_dir)
+        self.lineEdit_path.setText(new_path_dir)
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
