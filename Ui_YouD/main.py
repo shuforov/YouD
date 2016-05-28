@@ -2,6 +2,7 @@
 
 import sys
 import pafy
+import os
 from PyQt4 import QtGui, QtCore
 from Ui_YouD import Ui_Ui_YouD
 
@@ -17,20 +18,30 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
         self.connect(self.DownloadButton, QtCore.SIGNAL("clicked()"),self.download_url)
         self.connect(self.Path_button, QtCore.SIGNAL("clicked()"),self.YouD_path_f)
         self.new_path_dir = ''
-
+        self.FormatGroup.setEnabled(False)
+        self.DownloadGroup.setEnabled(False)
+        self.path_file = os.getcwd()
 
     # take url and add items to check box and list
     def takeandadd(self):
         text = self.lineEdit.text()
         try:
-            if text != False:
-                self.comboBox_format_type.clear()
-                self.comboBox_format_type.addItem('-Chose Type-')
-                self.comboBox_format_type.addItem('audio streams')
-                self.comboBox_format_type.addItem('video streams')
-                self.comboBox_format_type.addItem('all streams')
-        except:
-            pass
+            url = pafy.new(text)
+            self.FormatGroup.setEnabled(True)
+            self.comboBox_format_type.clear()
+            self.comboBox_format_type.addItem('-Chose Type-')
+            self.comboBox_format_type.addItem('audio streams')
+            self.comboBox_format_type.addItem('video streams')
+            self.comboBox_format_type.addItem('all streams')
+        except ValueError:
+            self.FormatGroup.setEnabled(False)
+            self.DownloadGroup.setEnabled(False)
+            msg = QtGui.QMessageBox()
+            msg.setWindowModality(QtCore.Qt.ApplicationModal)
+            msg.setIcon(QtGui.QMessageBox.Warning)
+            msg.setText("Pleas check your http link")
+            msg.setWindowTitle("Wrong type link")
+            msg.exec_()
     def chose_type(self, text):
         text_url = self.lineEdit.text()
         url = pafy.new(text_url)
@@ -39,6 +50,8 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
         list_form_all_type = url.allstreams
         if text == 'audio streams':
             self.listWidget_type.clear()
+            self.DownloadGroup.setEnabled(True)
+            self.lineEdit_path.setText(self.path_file)
             string_list_form_audio = []
             for x in list_form_audio:
                 string_list_form_audio.append(str(x))
@@ -50,6 +63,8 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 len_list_formats = len_list_formats - 1
         elif text == 'video streams':
             self.listWidget_type.clear()
+            self.DownloadGroup.setEnabled(True)
+            self.lineEdit_path.setText(self.path_file)
             string_list_form_video = []
             for x in list_form_video:
                 string_list_form_video.append(str(x))
@@ -61,6 +76,8 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 len_list_formats = len_list_formats - 1
         elif text == 'all streams':
             self.listWidget_type.clear()
+            self.DownloadGroup.setEnabled(True)
+            self.lineEdit_path.setText(self.path_file)
             string_list_form_all_type = []
             for x in list_form_all_type:
                 string_list_form_all_type.append(str(x))
@@ -105,12 +122,18 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 # print ratio
                 number = ratio
                 dec = str(number - int(number))[2:4]
+                self.UrlGroup.setEnabled(False)
+                self.FormatGroup.setEnabled(False)
+                self.DownloadGroup.setEnabled(False)
                 if int(ratio) == 0:
                     self.completed = int(dec)
                     self.progressBar_download.setValue(self.completed)
                 elif int(ratio) == 1:
                     self.completed = 100
                     self.progressBar_download.setValue(self.completed)
+                    self.UrlGroup.setEnabled(True)
+                    self.FormatGroup.setEnabled(True)
+                    self.DownloadGroup.setEnabled(True)
             if self.new_path_dir == '':
                 path_file = str(self.lineEdit_path.text())
             elif self.new_path_dir != '':
@@ -121,12 +144,18 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 # print ratio
                 number = ratio
                 dec = str(number - int(number))[2:4]
+                self.UrlGroup.setEnabled(False)
+                self.FormatGroup.setEnabled(False)
+                self.DownloadGroup.setEnabled(False)
                 if int(ratio) == 0:
                     self.completed = int(dec)
                     self.progressBar_download.setValue(self.completed)
                 elif int(ratio) == 1:
                     self.completed = 100
                     self.progressBar_download.setValue(self.completed)
+                    self.UrlGroup.setEnabled(True)
+                    self.FormatGroup.setEnabled(True)
+                    self.DownloadGroup.setEnabled(True)
             if self.new_path_dir == '':
                 path_file = str(self.lineEdit_path.text())
             elif self.new_path_dir != '':
@@ -137,12 +166,18 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 # print ratio
                 number = ratio
                 dec = str(number - int(number))[2:4]
+                self.UrlGroup.setEnabled(False)
+                self.FormatGroup.setEnabled(False)
+                self.DownloadGroup.setEnabled(False)
                 if int(ratio) == 0:
                     self.completed = int(dec)
                     self.progressBar_download.setValue(self.completed)
                 elif int(ratio) == 1:
                     self.completed = 100
                     self.progressBar_download.setValue(self.completed)
+                    self.UrlGroup.setEnabled(True)
+                    self.FormatGroup.setEnabled(True)
+                    self.DownloadGroup.setEnabled(True)
             if self.new_path_dir == '':
                 path_file = str(self.lineEdit_path.text())
             elif self.new_path_dir != '':
