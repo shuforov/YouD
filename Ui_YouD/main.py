@@ -21,6 +21,12 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
         self.FormatGroup.setEnabled(False)
         self.DownloadGroup.setEnabled(False)
         self.path_file = os.getcwd()
+        self.tempo_decod = self.path_file.decode('utf8')
+        self.base_path = self.tempo_decod
+        self.connect(self.listWidget_type, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.active_down_group)
+
+    def active_down_group(self):
+        self.DownloadGroup.setEnabled(True)
 
     # take url and add items to check box and list
     def takeandadd(self):
@@ -50,8 +56,7 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
         list_form_all_type = url.allstreams
         if text == 'audio streams':
             self.listWidget_type.clear()
-            self.DownloadGroup.setEnabled(True)
-            self.lineEdit_path.setText(self.path_file)
+            self.lineEdit_path.setText(self.base_path)
             string_list_form_audio = []
             for x in list_form_audio:
                 string_list_form_audio.append(str(x))
@@ -63,8 +68,7 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 len_list_formats = len_list_formats - 1
         elif text == 'video streams':
             self.listWidget_type.clear()
-            self.DownloadGroup.setEnabled(True)
-            self.lineEdit_path.setText(self.path_file)
+            self.lineEdit_path.setText(self.base_path)
             string_list_form_video = []
             for x in list_form_video:
                 string_list_form_video.append(str(x))
@@ -76,8 +80,7 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 len_list_formats = len_list_formats - 1
         elif text == 'all streams':
             self.listWidget_type.clear()
-            self.DownloadGroup.setEnabled(True)
-            self.lineEdit_path.setText(self.path_file)
+            self.lineEdit_path.setText(self.base_path)
             string_list_form_all_type = []
             for x in list_form_all_type:
                 string_list_form_all_type.append(str(x))
@@ -135,7 +138,7 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                     self.FormatGroup.setEnabled(True)
                     self.DownloadGroup.setEnabled(True)
             if self.new_path_dir == '':
-                path_file = str(self.lineEdit_path.text())
+                path_file = unicode(self.lineEdit_path.text())
             elif self.new_path_dir != '':
                 path_file = self.new_path_dir
             dict_list_form_audio[text_d].download(filepath=path_file, quiet=True, callback=progress)
@@ -157,7 +160,7 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                     self.FormatGroup.setEnabled(True)
                     self.DownloadGroup.setEnabled(True)
             if self.new_path_dir == '':
-                path_file = str(self.lineEdit_path.text())
+                path_file = unicode(self.lineEdit_path.text())
             elif self.new_path_dir != '':
                 path_file = self.new_path_dir
             dict_list_form_video[text_d].download(filepath=path_file, quiet=True, callback=progress)
@@ -179,7 +182,7 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                     self.FormatGroup.setEnabled(True)
                     self.DownloadGroup.setEnabled(True)
             if self.new_path_dir == '':
-                path_file = str(self.lineEdit_path.text())
+                path_file = unicode(self.lineEdit_path.text())
             elif self.new_path_dir != '':
                 path_file = self.new_path_dir
             dict_list_form_all_type[text_d].download(filepath=path_file, quiet=True, callback=progress)
