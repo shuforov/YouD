@@ -133,9 +133,7 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 dec = str(number - int(number))[2:4]
                 self.UrlGroup.setEnabled(False)
                 self.FormatGroup.setEnabled(False)
-                self.DownloadButton.setEnabled(False)
-                self.lineEdit_path.setEnabled(False)
-                self.Path_button.setEnabled(False)
+                self.DownloadGroup.setEnabled(False)
                 if int(ratio) == 0:
                     self.completed = int(dec)
                     self.progressBar_download.setValue(self.completed)
@@ -156,9 +154,7 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 dec = str(number - int(number))[2:4]
                 self.UrlGroup.setEnabled(False)
                 self.FormatGroup.setEnabled(False)
-                self.DownloadButton.setEnabled(False)
-                self.lineEdit_path.setEnabled(False)
-                self.Path_button.setEnabled(False)
+                self.DownloadGroup.setEnabled(False)
                 if int(ratio) == 0:
                     self.completed = int(dec)
                     self.progressBar_download.setValue(self.completed)
@@ -179,9 +175,7 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 dec = str(number - int(number))[2:4]
                 self.UrlGroup.setEnabled(False)
                 self.FormatGroup.setEnabled(False)
-                self.DownloadButton.setEnabled(False)
-                self.lineEdit_path.setEnabled(False)
-                self.Path_button.setEnabled(False)
+                self.DownloadGroup.setEnabled(False)
                 if int(ratio) == 0:
                     self.completed = int(dec)
                     self.progressBar_download.setValue(self.completed)
