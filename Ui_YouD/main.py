@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-
 import sys
 import pafy
-import os
+import os, signal
 from PyQt4 import QtGui, QtCore
 from Ui_YouD import Ui_Ui_YouD
 
@@ -12,49 +11,55 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
         Ui_Ui_YouD.__init__(self)
         # Configure ui interface
         self.setupUi(self)
-        # connect info button to check info about url and add to list widget formats
+        # Config buttons
         self.connect(self.UrlButton, QtCore.SIGNAL("clicked()"),self.takeandadd)
-        self.comboBox_format_type.activated[str].connect(self.chose_type)
         self.connect(self.DownloadButton, QtCore.SIGNAL("clicked()"),self.download_url)
         self.connect(self.Path_button, QtCore.SIGNAL("clicked()"),self.YouD_path_f)
+        self.connect(self.listWidget_type, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.active_down_group)
+        self.comboBox_format_type.activated[str].connect(self.chose_type)
+        # Global variables
         self.new_path_dir = ''
-        self.FormatGroup.setEnabled(False)
-        self.DownloadGroup.setEnabled(False)
         self.path_file = os.getcwd()
         self.tempo_decod = self.path_file.decode('utf8')
         self.base_path = self.tempo_decod
-        self.connect(self.listWidget_type, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.active_down_group)
+        # Set base focus
+        self.FormatGroup.setEnabled(False)
+        self.DownloadGroup.setEnabled(False)
+
 
     def active_down_group(self):
         self.DownloadGroup.setEnabled(True)
 
-    # take url and add items to check box and list
+    # Take url and add items type of media to check box
     def takeandadd(self):
         text = self.lineEdit.text()
         try:
             url = pafy.new(text)
             self.FormatGroup.setEnabled(True)
             self.comboBox_format_type.clear()
-            self.comboBox_format_type.addItem('-Chose Type-')
-            self.comboBox_format_type.addItem('audio streams')
-            self.comboBox_format_type.addItem('video streams')
-            self.comboBox_format_type.addItem('all streams')
+            self.comboBox_format_type.addItem('-----')
+            self.comboBox_format_type.addItem('Audio')
+            self.comboBox_format_type.addItem('Video')
+            self.comboBox_format_type.addItem('All')
         except ValueError:
             self.FormatGroup.setEnabled(False)
             self.DownloadGroup.setEnabled(False)
             msg = QtGui.QMessageBox()
             msg.setWindowModality(QtCore.Qt.ApplicationModal)
             msg.setIcon(QtGui.QMessageBox.Warning)
-            msg.setText("Pleas check your http link")
-            msg.setWindowTitle("Wrong type link")
+            msg.setText("Please check you entered is correct")
+            msg.setWindowTitle("Invalid link")
             msg.exec_()
+
+    # Chose type of media from widget list
     def chose_type(self, text):
+        self.comboBox_format_type.removeItem(0)
         text_url = self.lineEdit.text()
         url = pafy.new(text_url)
         list_form_audio = url.audiostreams
         list_form_video = url.streams
         list_form_all_type = url.allstreams
-        if text == 'audio streams':
+        if text == 'Audio':
             self.listWidget_type.clear()
             self.lineEdit_path.setText(self.base_path)
             string_list_form_audio = []
@@ -66,7 +71,7 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 self.listWidget_type.addItem(string_list_form_audio[counter])
                 counter += 1
                 len_list_formats = len_list_formats - 1
-        elif text == 'video streams':
+        elif text == 'Video':
             self.listWidget_type.clear()
             self.lineEdit_path.setText(self.base_path)
             string_list_form_video = []
@@ -78,7 +83,7 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 self.listWidget_type.addItem(string_list_form_video[counter])
                 counter += 1
                 len_list_formats = len_list_formats - 1
-        elif text == 'all streams':
+        elif text == 'All':
             self.listWidget_type.clear()
             self.lineEdit_path.setText(self.base_path)
             string_list_form_all_type = []
@@ -90,11 +95,16 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 self.listWidget_type.addItem(string_list_form_all_type[counter])
                 counter += 1
                 len_list_formats = len_list_formats - 1
+
+    # Set puth download
+    def YouD_path_f(self):
+        path_dir = QtGui.QFileDialog.getExistingDirectory(self, "Select Directory")
+        self.new_path_dir = unicode(path_dir)
+        self.lineEdit_path.setText(self.new_path_dir)
+
+    # Execute script of downloading, using pafy module.
     def download_url(self):
-        # print self.listWidget_type.currentRow()
         text_d = str(self.listWidget_type.currentItem().text())
-        # print text_d
-        # print type(text_d)
         text_url = self.lineEdit.text()
         url = pafy.new(text_url)
         list_form_audio = url.audiostreams
@@ -116,10 +126,6 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
         for x in list_form_all_type:
             dict_list_form_all_type[str(x)] = list_form_all_type[counter]
             counter += 1
-        # print list_form_video
-        # print list_form_all_type
-        # print list_form_audio
-        # print type(list_form_all_type[0])
         if text_d in dict_list_form_audio:
             def progress(total, recvd, ratio, rate, eta):
                 # print ratio
@@ -127,7 +133,9 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
                 dec = str(number - int(number))[2:4]
                 self.UrlGroup.setEnabled(False)
                 self.FormatGroup.setEnabled(False)
-                self.DownloadGroup.setEnabled(False)
+                self.DownloadButton.setEnabled(False)
+                self.lineEdit_path.setEnabled(False)
+                self.Path_button.setEnabled(False)
                 if int(ratio) == 0:
                     self.completed = int(dec)
                     self.progressBar_download.setValue(self.completed)
@@ -144,12 +152,13 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
             dict_list_form_audio[text_d].download(filepath=path_file, quiet=True, callback=progress)
         elif text_d in dict_list_form_video:
             def progress(total, recvd, ratio, rate, eta):
-                # print ratio
                 number = ratio
                 dec = str(number - int(number))[2:4]
                 self.UrlGroup.setEnabled(False)
                 self.FormatGroup.setEnabled(False)
-                self.DownloadGroup.setEnabled(False)
+                self.DownloadButton.setEnabled(False)
+                self.lineEdit_path.setEnabled(False)
+                self.Path_button.setEnabled(False)
                 if int(ratio) == 0:
                     self.completed = int(dec)
                     self.progressBar_download.setValue(self.completed)
@@ -166,12 +175,13 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
             dict_list_form_video[text_d].download(filepath=path_file, quiet=True, callback=progress)
         elif text_d in dict_list_form_all_type:
             def progress(total, recvd, ratio, rate, eta):
-                # print ratio
                 number = ratio
                 dec = str(number - int(number))[2:4]
                 self.UrlGroup.setEnabled(False)
                 self.FormatGroup.setEnabled(False)
-                self.DownloadGroup.setEnabled(False)
+                self.DownloadButton.setEnabled(False)
+                self.lineEdit_path.setEnabled(False)
+                self.Path_button.setEnabled(False)
                 if int(ratio) == 0:
                     self.completed = int(dec)
                     self.progressBar_download.setValue(self.completed)
@@ -186,12 +196,6 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
             elif self.new_path_dir != '':
                 path_file = self.new_path_dir
             dict_list_form_all_type[text_d].download(filepath=path_file, quiet=True, callback=progress)
-        # list_form_all_type[0].download(filepath='')
-
-    def YouD_path_f(self):
-        path_dir = QtGui.QFileDialog.getExistingDirectory(self, "Select Directory")
-        self.new_path_dir = unicode(path_dir)
-        self.lineEdit_path.setText(self.new_path_dir)
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)
