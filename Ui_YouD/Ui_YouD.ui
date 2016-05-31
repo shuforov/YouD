@@ -13,13 +13,17 @@
   <property name="windowTitle">
    <string>YouD</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../.designer/backup/fish.ico</normaloff>../../.designer/backup/fish.ico</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QGroupBox" name="UrlGroup">
        <property name="title">
-        <string>Type your url link here</string>
+        <string>Enter your url video</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
@@ -42,7 +46,7 @@
      <item>
       <widget class="QGroupBox" name="FormatGroup">
        <property name="title">
-        <string>Chose type of format</string>
+        <string>Media Type</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
@@ -61,7 +65,7 @@
      <item>
       <widget class="QGroupBox" name="DownloadGroup">
        <property name="title">
-        <string>Type path to download plase</string>
+        <string>Download path</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_8">
         <item>

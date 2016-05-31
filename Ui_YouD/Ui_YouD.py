@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'Ui_YouD.ui'
 #
-# Created: Sun May 22 14:03:03 2016
-#      by: PyQt4 UI code generator 4.10.4
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -27,6 +26,9 @@ class Ui_Ui_YouD(object):
     def setupUi(self, Ui_YouD):
         Ui_YouD.setObjectName(_fromUtf8("Ui_YouD"))
         Ui_YouD.resize(412, 476)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("../../.designer/backup/fish.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Ui_YouD.setWindowIcon(icon)
         self.verticalLayout_2 = QtGui.QVBoxLayout(Ui_YouD)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
         self.verticalLayout = QtGui.QVBoxLayout()
@@ -87,10 +89,10 @@ class Ui_Ui_YouD(object):
 
     def retranslateUi(self, Ui_YouD):
         Ui_YouD.setWindowTitle(_translate("Ui_YouD", "YouD", None))
-        self.UrlGroup.setTitle(_translate("Ui_YouD", "Type your url link here", None))
+        self.UrlGroup.setTitle(_translate("Ui_YouD", "Enter your url video", None))
         self.UrlButton.setText(_translate("Ui_YouD", "Chack url", None))
-        self.FormatGroup.setTitle(_translate("Ui_YouD", "Chose type of format", None))
-        self.DownloadGroup.setTitle(_translate("Ui_YouD", "Type path to download plase", None))
+        self.FormatGroup.setTitle(_translate("Ui_YouD", "Media Type", None))
+        self.DownloadGroup.setTitle(_translate("Ui_YouD", "Download path", None))
         self.Path_button.setText(_translate("Ui_YouD", "Chose Dir", None))
         self.DownloadButton.setText(_translate("Ui_YouD", "Download", None))
 
