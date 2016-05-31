@@ -53,7 +53,8 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
 
     # Chose type of media from widget list
     def chose_type(self, text):
-        self.comboBox_format_type.removeItem(0)
+        if self.comboBox_format_type.itemText(0) == '-----':
+            self.comboBox_format_type.removeItem(0)
         text_url = self.lineEdit.text()
         url = pafy.new(text_url)
         list_form_audio = url.audiostreams
