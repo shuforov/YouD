@@ -1,6 +1,6 @@
-# YouD ![alt text][logo]
-
-[logo]: https://github.com/shuforov/YouD/Ui_YouD/YouDico.ico
+<p align="center">
+  <img src="https://github.com/shuforov/YouD/blob/youd/Ui_YouD/YouDico.png?raw=true" >
+</p>
 YouD is free software application with which you can download videos from YouTube. 
 There are two version of it, Terminal and Ui:
 
@@ -83,4 +83,3 @@ pip install --upgrade youtube-dl
 ```
 
 ##### Install [Pyqt4](http://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.4/PyQt4-4.11.4-gpl-Py2.7-Qt4.8.7-x32.exe)
-
