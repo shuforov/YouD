@@ -1,6 +1,6 @@
 # YouD ![alt text][logo]
 
-[logo]: https://github.com/shuforov/YouD/Ui_YouD/fish.ico
+[logo]: https://github.com/shuforov/YouD/Ui_YouD/YouDico.ico
 YouD is free software application with which you can download videos from YouTube. 
 There are two version of it, Terminal and Ui:
 
