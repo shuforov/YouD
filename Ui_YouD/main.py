@@ -25,8 +25,6 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
         # Set base focus
         self.FormatGroup.setEnabled(False)
         self.DownloadGroup.setEnabled(False)
-        self.oldstdout = sys.stdout
-        sys.stdout = file(self.base_path + '/log', "w")
 
 
     def active_down_group(self):
@@ -58,8 +56,9 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
             msg.setWindowTitle("Invalid link")
             msg.exec_()
 
-    # Chose type of media from widget list
+    # Chose type of media from widget list   
     def chose_type(self, text):
+
         print 'chose_type start'
         if self.comboBox_format_type.itemText(0) == '-----':
             self.comboBox_format_type.removeItem(0)
@@ -216,6 +215,5 @@ if __name__ == '__main__':
     window = YouD()
     window.show()
     sys.exit(app.exec_())
-    sys.stdout.close()
 
 
