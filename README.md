@@ -7,6 +7,20 @@ There are two version of it, Terminal and Ui:
 * T_YouD is terminal version of YouD, it use only python interpreter python and pafy module.
 * Ui_YouD is user interface application version of T_YouD.  
 
+##  Install Ui_YouD on linux
+```shell
+cd
+mkdir youd
+cd youd
+wget -O YouD.zip https://github.com/shuforov/YouD/archive/master.zip
+7z x YouD.zip
+mkdir ~/.YouD
+cd YouD-master
+cp ./Ui_YouD/Linux_build/YouD ~/.YouD/
+export PATH=$PATH:~/.YouD/
+cd
+```
+
 ## Terminal Downloader (T_YouD)
 ### On linux
 
