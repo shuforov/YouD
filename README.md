@@ -16,7 +16,7 @@ wget -O YouD.zip https://github.com/shuforov/YouD/archive/master.zip
 7z x YouD.zip
 mkdir ~/.YouD
 cd YouD-master
-cp ./Ui_YouD/Linux_build/YouD ~/.YouD/
+cp ./Ui_YouD/Linux_build/youd ~/.YouD/
 export PATH=$PATH:~/.YouD/
 cd
 ```
