@@ -27,7 +27,7 @@ class Ui_Ui_YouD(object):
         Ui_YouD.setObjectName(_fromUtf8("Ui_YouD"))
         Ui_YouD.resize(412, 476)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("../../.designer/backup/fish.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("../../.designer/backup/YouDico.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Ui_YouD.setWindowIcon(icon)
         self.verticalLayout_2 = QtGui.QVBoxLayout(Ui_YouD)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
