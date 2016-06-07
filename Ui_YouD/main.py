@@ -25,6 +25,9 @@ class YouD(QtGui.QWidget, Ui_Ui_YouD):
         # Set base focus
         self.FormatGroup.setEnabled(False)
         self.DownloadGroup.setEnabled(False)
+        #log file
+        self.oldstdout = sys.stdout
+        sys.stdout = file(self.base_path + '/log', "w")
 
 
     def active_down_group(self):
@@ -215,5 +218,6 @@ if __name__ == '__main__':
     window = YouD()
     window.show()
     sys.exit(app.exec_())
+    sys.stdout.close()
 
 

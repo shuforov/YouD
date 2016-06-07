@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../../.designer/backup/fish.ico</normaloff>../../.designer/backup/fish.ico</iconset>
+    <normaloff>YouDico.ico</normaloff>YouDico.ico</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
