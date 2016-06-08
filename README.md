@@ -8,11 +8,17 @@ There are two version of it, Terminal and Ui:
 * Ui_YouD is user interface application version of T_YouD.  
 
 ### Prerequisites
-For Linux
+#### For Linux
 
 * `p7zip-full` should be installed
 
-##  Install T_YouD on linux
+#### For Windows
+
+* Microsoft visual c++ 2009 or later 
+
+### Install on linux
+
+####  Install T_YouD on linux
 Application install to your home directory and add to PATH
 ```shell
 cd
@@ -30,7 +36,7 @@ To run application in terminal
 ```shell
 youd_t
 ```
-##  Install Ui_YouD on linux
+####  Install Ui_YouD on linux
 Application install to your home directory and add to PATH
 ```shell
 cd
@@ -48,6 +54,15 @@ To run application in terminal
 ```shell
 youd
 ```
+### Install on Windows
+
+#### Install T_YouD on windows
+
+Just copy where you need and open it via cmd
+
+#### Install Ui_YouD on windows
+
+Just copy where you need and execute the application
 
 ## Terminal Downloader (T_YouD)
 ### On linux
