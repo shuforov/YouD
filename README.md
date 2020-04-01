@@ -8,7 +8,7 @@ YouD is free software application with which you can download videos and playlis
 
 * python 2.7 or Python3.*
 * pafy
-* ffmpy
+* ffmpy (for python 2.7)
 
 ##### Install [Pafy](https://github.com/mps-youtube/pafy) [ffmpy](http://ffmpy.readthedocs.io/en/latest/)
 ```shell
