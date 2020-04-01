@@ -6,7 +6,7 @@ YouD is free software application with which you can download videos and playlis
 ### Prerequisites
 #### For Linux
 
-* python 2.7
+* python 2.7 or Python3.*
 * pafy
 * ffmpy
 
@@ -20,5 +20,7 @@ sudo pip install ffmpy
 ```
 ##### Start youd
 ```shell
-python YouD.py
+python YouD.py (for python 2.7)
+or
+python YouD_py_v3.py (for python 3.*)
 ```
