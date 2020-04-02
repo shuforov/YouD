@@ -1,0 +1,124 @@
+import pafy
+import os
+import ffmpeg
+import shutil
+
+
+class You_downloader(object):
+    """ Downloader of video from youtube and convertor of audio files """
+    LIST_OF_STREAM_TYPES = ['audio streams', 'streams', 'all streams']
+    OPTIONS = ["(O)Download one video, (P)Download playlist, (C)Convert music file to mp3 format, (Q)Quit"]
+    FORMAT_OPTIONS = ['(0)Audio', '(1)Video']
+    PLAYLIST_DOWNLOAD_FORMATS = ['getbestaudio', 'getbest']
+    FILE_PATHS = ['./music', './video', './']
+    
+    @staticmethod
+    def info_url(url):
+        print('------------------')
+        print('Title:', url.title)
+        print('Thumb:', url.thumb)
+        print('Duration:', url.duration)
+        print('------------------')
+        print('Chose the list of available formats and enter the number:')
+
+    def take_data_url_link(url):
+        pafy.new(url)
+
+    def take_stream_type(url, number):
+        getattr(url, LIST_OF_STREAM_TYPES[number].replace(" ", ""))()
+
+    def download(type_download, number, url, format_url = nil):
+        if download == 'single'
+            take_stream_type(url, number)[format_url].download(filepath=FILE_PATHS[number])
+        elif download == 'playlist'
+            for element in range(len(pl_link['items'])):
+                link_video = getattr(pl_link['items'][element]['pafy'], PLAYLIST_DOWNLOAD_FORMATS[number])()
+                link_video.download(filepath=FILE_PATHS[number])           
+        else
+            None
+
+    def download_single(url_link):
+        """ Download single video url """
+        url = take_data_url_link(url_link)
+        info_url(url)
+        for indx, val in enumerate(LIST_OF_STREAM_TYPES): print(indx, val)
+        breakpoint()
+        number = int(input('->'))
+        print(take_stream_type(url, number), number)
+        format_url = int(input('Chose format to download ->'))
+        download('single', number, url, format_url)
+
+    def download_playlist(url_link):
+        """ Download all videos from playlist """
+        pl_link = pafy.get_playlist(url_link)
+        formats = ' '.join(FORMAT_OPTIONS)
+        chose = int(input("Chose format: {formats} download\n=>"))
+        download('playlist', chose, pl_link)
+        print "Download finished"
+
+    @staticmethod
+    def convert_music():
+        try:
+            os.makedirs('./music/converted')
+        except OSError:
+            print("Directory converted already exist")
+        os.chdir('./music')
+        for file in os.listdir("./"):
+            if file.endswith(".webm"):
+                ff = ffmpy.FFmpeg(
+                    inputs={file: None},
+                    outputs={file[:-5]+'.mp3': None})
+                ff.run()
+            elif file.endswith(".m4a"):
+                ff = ffmpy.FFmpeg(
+                        inputs={file: None},
+                        outputs={file[:-4]+'.mp3': None})
+                ff.run()
+            else:
+                pass
+        for file in os.listdir("./"):
+            if file.endswith(".mp3"):
+                shutil.move(file, './converted')
+        for file in os.listdir("./"):
+            if file.endswith(".webm") or file.endswith(".m4a"):
+                os.remove(file)
+
+
+def main():
+    youd = You_downloader()
+    chose_stay_at_app = True
+    options = print("\n".join(OPTIONS))
+    chose = int(input('->'))
+    while chose_stay_at_app:
+        options = print("\n".join(OPTIONS))
+        chose = input(options)
+        if chose == 'O':
+            url = raw_input("Type your url link here \n=>")
+            youd.download_single(url)
+        elif chose == 'P':
+            try:
+                print("Chack if exist music directory....")
+                os.makedirs('./music')
+                print("OK")
+            except OSError:
+                print('Dirrectory music already exist')
+            try:
+                print("Chack if exist video directory....")
+                os.makedirs('./video')
+                print('OK')
+            except OSError:
+                print('Dirrectory video already exist')
+            url = raw_input("Type your url link here \n=>")
+            youd.download_playlist(url)
+        elif chose == 'C':
+            youd.convert_music()
+        elif chose == 'Q':
+            chose_stay_at_app = False
+        else:
+            print "Wronge chose, please try agen"
+
+if __name__ == "__main__":
+    """ If you dont want use builtin main function, and use this class as lib \
+        comment out main() at the bottom and uncomment pass command """
+    main()
+    # pass
