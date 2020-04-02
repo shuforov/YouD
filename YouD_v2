@@ -1,6 +1,6 @@
 import pafy
 import os
-import ffmpeg
+import ffmpy3
 import shutil
 
 
@@ -9,8 +9,12 @@ class You_downloader(object):
     LIST_OF_STREAM_TYPES = ['audio streams', 'streams', 'all streams']
     OPTIONS = ["(O)Download one video, (P)Download playlist, (C)Convert music file to mp3 format, (Q)Quit"]
     FORMAT_OPTIONS = ['(0)Audio', '(1)Video']
+    ROOT_PATH = ['./']
     PLAYLIST_DOWNLOAD_FORMATS = ['getbestaudio', 'getbest']
-    FILE_PATHS = ['./music', './video', './']
+    FILE_PATHS = ['./music', './video', ROOT_PATH]
+    CONVERTOR_FROM_TYPES = ['.webm', '.m4a']
+    CONVERT_AUDIO_TO = '.mp3'
+
     
     @staticmethod
     def info_url(url):
@@ -56,30 +60,32 @@ class You_downloader(object):
         download('playlist', chose, pl_link)
         print "Download finished"
 
-    @staticmethod
-    def convert_music():
+    def create_converted_dir():
         try:
             os.makedirs('./music/converted')
         except OSError:
             print("Directory converted already exist")
+
+    def convert_music():
+        create_converted_dir()
         os.chdir('./music')
-        for file in os.listdir("./"):
+        for file in os.listdir(ROOT_PATH):
             if file.endswith(".webm"):
-                ff = ffmpy.FFmpeg(
+                ff = ffmpy3.FFmpeg(
                     inputs={file: None},
-                    outputs={file[:-5]+'.mp3': None})
+                    outputs={file[:-5]+CONVERT_AUDIO_TO: None})
                 ff.run()
             elif file.endswith(".m4a"):
-                ff = ffmpy.FFmpeg(
+                ff = ffmpy3.FFmpeg(
                         inputs={file: None},
-                        outputs={file[:-4]+'.mp3': None})
+                        outputs={file[:-4]+CONVERT_AUDIO_TO: None})
                 ff.run()
             else:
                 pass
-        for file in os.listdir("./"):
-            if file.endswith(".mp3"):
+        for file in os.listdir(ROOT_PATH):
+            if file.endswith(CONVERT_AUDIO_TO):
                 shutil.move(file, './converted')
-        for file in os.listdir("./"):
+        for file in os.listdir(ROOT_PATH):
             if file.endswith(".webm") or file.endswith(".m4a"):
                 os.remove(file)
 
