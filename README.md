@@ -6,21 +6,19 @@ YouD is free software application with which you can download videos and playlis
 ### Prerequisites
 #### For Linux
 
-* python 2.7 or Python3.*
+* Python3.*
 * pafy
-* ffmpy (for python 2.7)
+* ffmpy3
 
-##### Install [Pafy](https://github.com/mps-youtube/pafy) [ffmpy](http://ffmpy.readthedocs.io/en/latest/)
+##### Install [Pafy](https://github.com/mps-youtube/pafy) [ffmpy3](https://pypi.org/project/ffmpy3/)
 ```shell
-sudo apt-get install python-pip python-dev build-essential
-sudo pip install --upgrade pip
-sudo pip install install pafy
-sudo pip install --upgrade youtube_dl
-sudo pip install ffmpy
+sudo apt-get install python3-pip python-dev build-essential
+sudo pip3 install --upgrade pip
+sudo pip3 install install pafy
+sudo pip3 install --upgrade youtube_dl
+sudo pip3 install ffmpy3
 ```
 ##### Start youd
 ```shell
-python YouD.py (for python 2.7)
-or
-python YouD_py_v3.py (for python 3.*)
+python3 YouD_v2.py
 ```
